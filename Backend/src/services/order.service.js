@@ -1,12 +1,14 @@
 const Address = require('../models/address.model');
+const Cart = require('../models/cart.model');
+const CartItem = require('../models/cartItem.model');
 const Order = require('../models/order.model')
 const OrderItem = require('../models/orderItem.model')
 const cartService = require('../services/cart.service');
 
-const createOrder = async(user, shippingAddress) => {
+const createOrder = async (user, shippingAddress) => {
     let address;
 
-    if(shippingAddress._id){
+    if (shippingAddress._id) {
         let addressAlreadyExists = await Address.findById(shippingAddress._id);
         address = addressAlreadyExists;
     } else {
@@ -15,15 +17,15 @@ const createOrder = async(user, shippingAddress) => {
         await address.save();
 
         user.address.push(address);
-        
+
 
         await user.save();
     }
 
     const cart = await cartService.findUserCart(user._id);
-    const orderItems =[]
+    const orderItems = []
 
-    for (const item of cart.cartItems){
+    for (const item of cart.cartItems) {
         const orderItem = new OrderItem({
             price: item.price,
             product: item.product,
@@ -48,19 +50,28 @@ const createOrder = async(user, shippingAddress) => {
     })
 
     const savedOrder = await createdOrder.save();
+
+    const { acknowledged } = await CartItem.deleteMany({ "cart": cart._id })
+    console.log(acknowledged);
+
+    if (acknowledged) {
+        cart.cartItems = []
+        await cart.save()
+    }
+
     return savedOrder;
 }
 
-const placeOrder = async(orderId) => {
+const placeOrder = async (orderId) => {
     const order = await findOrderById(orderId);
 
     order.orderStatus = 'placed';
-    order.paymentDetails.status='completed';
+    order.paymentDetails.status = 'completed';
 
     return await order.save();
 }
 
-const confirmedOrder = async(orderId) => {
+const confirmedOrder = async (orderId) => {
     const order = await findOrderById(orderId);
 
     order.orderStatus = 'confirmed';
@@ -68,7 +79,7 @@ const confirmedOrder = async(orderId) => {
     return await order.save();
 }
 
-const shippedOrder = async(orderId) => {
+const shippedOrder = async (orderId) => {
     const order = await findOrderById(orderId);
 
     order.orderStatus = 'shipped';
@@ -76,7 +87,7 @@ const shippedOrder = async(orderId) => {
     return await order.save();
 }
 
-const deliveredOrder = async(orderId) => {
+const deliveredOrder = async (orderId) => {
     const order = await findOrderById(orderId);
 
     order.orderStatus = 'delivered';
@@ -84,7 +95,7 @@ const deliveredOrder = async(orderId) => {
     return await order.save();
 }
 
-const cancelledOrder = async(orderId) => {
+const cancelledOrder = async (orderId) => {
     const order = await findOrderById(orderId);
 
     order.orderStatus = 'cancelled';
@@ -92,18 +103,18 @@ const cancelledOrder = async(orderId) => {
     return await order.save();
 }
 
-const findOrderById = async(orderId) => {
+const findOrderById = async (orderId) => {
     const order = await Order.findById(orderId).populate('user')
-    .populate({path:'orderItems', populate:{path:'product'}}).populate('shippingAddress');
+        .populate({ path: 'orderItems', populate: { path: 'product' } }).populate('shippingAddress');
 
     return order;
 }
 
-const usersOrderHistory = async(userId) => {
-    try{
+const usersOrderHistory = async (userId) => {
+    try {
 
-        const orders = await Order.find({user:userId, orderStatus:'placed'})
-        .populate({path:'orderItems', populate:{path:'product'}}).lean()
+        const orders = await Order.find({ user: userId, orderStatus: 'placed' })
+            .populate({ path: 'orderItems', populate: { path: 'product' } }).lean()
 
         return orders
 
@@ -112,14 +123,14 @@ const usersOrderHistory = async(userId) => {
     }
 }
 
-const getAllOrders  = async() => {
+const getAllOrders = async () => {
     return await Order.find()
-    .populate({path:'orderItems', populate:{path:'product'}}).lean()
+        .populate({ path: 'orderItems', populate: { path: 'product' } }).lean()
 }
 
-const deleteOrder = async(orderId) => {
+const deleteOrder = async (orderId) => {
     const order = await findOrderById(orderId);
     await Order.findByIdAndDelete(order);
 }
 
-module.exports = {findOrderById, createOrder, placeOrder, confirmedOrder, shippedOrder, deliveredOrder, cancelledOrder, usersOrderHistory, getAllOrders, deleteOrder}
+module.exports = { findOrderById, createOrder, placeOrder, confirmedOrder, shippedOrder, deliveredOrder, cancelledOrder, usersOrderHistory, getAllOrders, deleteOrder }

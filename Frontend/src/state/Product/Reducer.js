@@ -7,6 +7,8 @@ import {
 
 const initialState = {
     products: [],
+    currentPage: 1,
+    totalPages: 1,
     error: null,
     product: null,
     isLoading: false
@@ -21,13 +23,13 @@ export const productReducer = (state = initialState, action) => {
             return { ...state, isLoading: false, product: action.payload }
 
         case FIND_PRODUCTS_SUCCESS:
-            return { ...state, isLoading: false, error: null, products: action.payload.content }
+            return { ...state, isLoading: false, error: null, products: action.payload.content, currentPage: action.payload.currentPage, totalPages: action.payload.totalPages }
 
         case DELETE_PRODUCT_SUCCESS:
-            return { ...state, isLoading: false, error: null, removeProduct: action.payload}
+            return { ...state, isLoading: false, error: null, removeProduct: action.payload }
 
         case CREATE_PRODUCT_SUCCESS:
-            return {...state, isLoading: false, error: null, products: [...state.products, action.payload]}
+            return { ...state, isLoading: false, error: null, products: [...state.products, action.payload] }
 
         case FIND_PRODUCTS_FAILURE || FIND_PRODUCT_BY_ID_FAILURE || DELETE_PRODUCT_FAILURE || CREATE_PRODUCT_FAILURE:
             return { ...state, isLoading: false, error: action.payload }

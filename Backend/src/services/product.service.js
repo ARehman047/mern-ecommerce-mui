@@ -96,6 +96,7 @@ const findProductById = async (productId) => {
 };
 
 const getAllProducts = async (reqQuery) => {
+
     let { category, color, sizes, minPrice, maxPrice, minDiscount, sort, stock, pageNumber, pageSize } = reqQuery;
 
     

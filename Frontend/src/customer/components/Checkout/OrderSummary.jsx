@@ -20,7 +20,9 @@ const OrderSummary = () => {
     const actual_order = order?.order?.order
     const shippingDetails = actual_order?.shippingAddress
     
-
+    const handleCheckout = () => {
+        navigate(`/checkout/orderConfirmed?order_id=${order_id}`)
+    }
 
     return (
         <div>
@@ -66,7 +68,7 @@ const OrderSummary = () => {
                             <button
                                 type="submit"
                                 className="mt-8 flex items-center justify-center rounded-md border border-transparent bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 w-full"
-                                onClick={() => navigate(`/checkout/orderConfirmed?order_id=${order_id}`)}                            
+                                onClick={() => handleCheckout()}                            
                             >
                                 Checkout
                             </button>

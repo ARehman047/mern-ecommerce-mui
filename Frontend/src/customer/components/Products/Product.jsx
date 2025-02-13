@@ -48,7 +48,8 @@ export default function Product() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { product } = useSelector(store => store)
-
+  console.log(product);
+  
   const decodedQueryString = decodeURIComponent(location.search)
   const searchParams = new URLSearchParams(decodedQueryString)
   const colorValue = searchParams.get('color');
@@ -63,6 +64,8 @@ export default function Product() {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set('page', value)
     const query = searchParams.toString()
+    console.log(query);
+    
     navigate({ search: `?${query}` })
 
   }
@@ -390,7 +393,7 @@ export default function Product() {
             </div>
           </section>
           <section className='w-full flex justify-center'>
-            <Pagination count={product.products?.totalPages} color="secondary" size='large' onChange={handlePagination} />
+            <Pagination count={product?.totalPages} color="secondary" size='large' onChange={handlePagination} />
           </section>
         </main>
       </div>

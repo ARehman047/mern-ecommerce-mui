@@ -34,7 +34,7 @@ export const getCart = () => async (dispatch) => {
     dispatch(getCartRequest())
     try {
         const data = await api.get(`api/cart`)
-        dispatch(getcartSuccess(data))
+        dispatch(getcartSuccess(data.data))
     } catch (error) {
         dispatch(getCartFailure(error.message))
     }

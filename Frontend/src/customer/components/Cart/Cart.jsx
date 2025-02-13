@@ -13,8 +13,10 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getCart())
     }, [cart.updateCartItem, cart.removeCartItem])
-
-    const actual_cart = cart?.cart?.data
+    console.log(cart);
+    
+    const actual_cart = cart?.cart
+    
     return (
         <div>
             <div className='lg:grid grid-cols-3'>
