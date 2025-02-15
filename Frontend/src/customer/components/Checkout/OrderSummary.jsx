@@ -16,6 +16,7 @@ const OrderSummary = () => {
     useEffect(() => {
         dispatch(getOrderById(order_id))
     }, [order_id])
+    
 
     const actual_order = order?.order?.order
     const shippingDetails = actual_order?.shippingAddress

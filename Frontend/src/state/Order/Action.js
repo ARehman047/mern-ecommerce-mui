@@ -18,16 +18,16 @@ const getOrderByIdSuccess = (order) => ({ type: GET_ORDER_BY_ID_SUCCESS, payload
 const getOrderByIdFailure = (error) => ({ type: GET_ORDER_BY_ID_FAILURE, payload: error });
 
 
-export const createOrder = ({allData, navigate}) => async (dispatch) => {
-    
+export const createOrder = ({ allData, navigate }) => async (dispatch) => {
+
     dispatch(createOrderRequest());
     try {
-        
-        const {data} = await api.post(`api/orders`, allData);
-        
-        if(data._id){
-            
-            navigate({ search: `step=3&order_id=${data._id}`})
+
+        const { data } = await api.post(`api/orders`, allData);
+
+        if (data._id) {
+
+            navigate({ search: `step=3&order_id=${data._id}` })
         }
         dispatch(createOrderSuccess(data));
     } catch (error) {
@@ -49,7 +49,8 @@ export const getOrderById = (orderId) => async (dispatch) => {
     dispatch(getOrderByIdRequest());
     try {
         const { data } = await api.get(`api/orders/${orderId}`);
-        
+        console.log(data);
+
         dispatch(getOrderByIdSuccess(data));
     } catch (error) {
         dispatch(getOrderByIdFailure(error.message));

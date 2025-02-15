@@ -1,6 +1,12 @@
 const User = require("../models/user.model");
 const Address = require("../models/address.model");
+const Cart = require("../models/cart.model");
+const Order = require("../models/order.model");
+const OrderItem = require("../models/orderItem.model");
+const CartItem = require("../models/cartItem.model")
+
 const bcrypt = require('bcrypt');
+
 const jwtProvider = require('../config/jwtProvider.js')
 
 const createUser = async (userData) => {
@@ -76,8 +82,18 @@ const getAllUsers = async() => {
 }
 
 const deleteUserByID =async(userId) => {
+    const user = await User.findById(userId)
     try {
-        await User.findByIdAndDelete(userId);
+        await Promise.all([
+            User.findByIdAndDelete(userId),
+            Address.deleteMany({_id: { $in: user.address }}),
+            Cart.deleteMany({"user":userId}),
+            CartItem.deleteMany({"userId":userId}),
+            Order.deleteMany({"user":userId}),
+            OrderItem.deleteMany({"userId":userId})
+        ]);
+        
+
     } catch (error) {
         throw new Error(error.message); 
     }

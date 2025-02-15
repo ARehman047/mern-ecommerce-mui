@@ -7,13 +7,12 @@ const cartService = require('../services/cart.service');
 
 const createOrder = async (user, shippingAddress) => {
     let address;
-
     if (shippingAddress._id) {
         let addressAlreadyExists = await Address.findById(shippingAddress._id);
         address = addressAlreadyExists;
     } else {
         address = new Address(shippingAddress);
-        address.user = user;
+        // address.user = user;
         await address.save();
 
         user.address.push(address);
@@ -52,7 +51,6 @@ const createOrder = async (user, shippingAddress) => {
     const savedOrder = await createdOrder.save();
 
     const { acknowledged } = await CartItem.deleteMany({ "cart": cart._id })
-    console.log(acknowledged);
 
     if (acknowledged) {
         cart.cartItems = []
