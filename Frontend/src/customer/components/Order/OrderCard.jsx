@@ -1,6 +1,6 @@
 import React from 'react'
 import AdjustIcon from '@mui/icons-material/Adjust';
-import { Avatar, AvatarGroup} from '@mui/material';
+import { Avatar, AvatarGroup } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const OrderCard = ({ order }) => {
@@ -13,8 +13,8 @@ const OrderCard = ({ order }) => {
             <div className='col-span-7'>
                 <div className='flex space-x-3'>
                     <div className='flex h-[6rem] w-[6rem] items-center justify-center'>
-                        <AvatarGroup>
-                            {orderItems?.slice(0, 3).map((orderItem) => (
+                        <AvatarGroup spacing={27}>
+                            {orderItems?.map((orderItem) => (
                                 <Avatar src={orderItem.product.imageUrl} sx={{ width: 45, height: 45 }}></Avatar>
                             ))}
                         </AvatarGroup>

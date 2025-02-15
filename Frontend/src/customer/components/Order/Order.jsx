@@ -19,7 +19,6 @@ const Order = () => {
         dispatch(getOrderHistory())
     }, [])
     const actual_order = order.orders.allOrders
-    console.log(actual_order);
     
     
   return (
