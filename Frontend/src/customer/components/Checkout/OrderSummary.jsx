@@ -16,11 +16,10 @@ const OrderSummary = () => {
     useEffect(() => {
         dispatch(getOrderById(order_id))
     }, [order_id])
-    
+
 
     const actual_order = order?.order?.order
-    const shippingDetails = actual_order?.shippingAddress
-    
+
     const handleCheckout = () => {
         navigate(`/checkout/orderConfirmed?order_id=${order_id}`)
     }
@@ -28,15 +27,12 @@ const OrderSummary = () => {
     return (
         <div>
             <div className='p-5 shadow-lg border rounded-lg'>
-                {shippingDetails?.map((item) => (
-                    <AdressCard address={item} />
-                    ))}
-                
+                <AdressCard address={actual_order?.shippingAddress} />
             </div>
             <div>
                 <div className='lg:grid grid-cols-3'>
                     <div className='col-span-2'>
-                        {actual_order?.orderItems.map((item) => (
+                        {actual_order?.orderItems?.map((item) => (
                             <div>
                                 <CartItem item={item} />
                             </div>
@@ -69,7 +65,7 @@ const OrderSummary = () => {
                             <button
                                 type="submit"
                                 className="mt-8 flex items-center justify-center rounded-md border border-transparent bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 w-full"
-                                onClick={() => handleCheckout()}                            
+                                onClick={() => handleCheckout()}
                             >
                                 Checkout
                             </button>

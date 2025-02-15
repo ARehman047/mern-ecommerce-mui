@@ -20,15 +20,18 @@ const OrderDetails = () => {
     const actual_order = order?.order?.order
 
 
-
     return (
         <div className='p-5 m-5 mx-20 space-y-10'>
             <div className='p-5 shadow-md border'>
                 <AdressCard address={actual_order?.shippingAddress} />
             </div>
 
-            <div className='p-5 shadow-md border'>
-                <OrderTracker activeStep={steps.indexOf(actual_order?.orderStatus)+1} />
+            <div className="p-5 shadow-md border">
+                {actual_order?.orderStatus !== "cancelled" ? (
+                    <OrderTracker activeStep={steps.indexOf(actual_order?.orderStatus) + 1} />
+                ) : (
+                    <div className='flex justify-center text-red-700 font-extrabold text-2xl'>Cancelled</div>
+                )}
             </div>
 
             {actual_order?.orderItems?.map((item) =>

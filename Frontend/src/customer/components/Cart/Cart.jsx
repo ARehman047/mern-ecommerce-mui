@@ -13,7 +13,6 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getCart())
     }, [cart.updateCartItem, cart.removeCartItem])
-    console.log(cart);
     
     const actual_cart = cart?.cart
     

@@ -49,9 +49,6 @@ const Order = () => {
         selectedFilters.length === 0 || selectedFilters.includes(item.orderStatus)
     );
 
-    console.log(actual_order);
-    
-
     return (
         <div>
             <Grid container justifyContent={'space-between'}>

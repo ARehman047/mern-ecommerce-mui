@@ -17,7 +17,6 @@ const updateCartItem = async(userId, cartItemId, cartItemData) => {
 
         if(user._id.toString() === userId.toString()){
 
-            console.log(item);
 
             item.quantity = cartItemData.quantity;
             item.price = item.quantity * item.product.price;

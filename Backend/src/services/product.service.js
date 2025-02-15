@@ -6,7 +6,6 @@ const createProduct = async (reqData) => {
         
         let topLevel = await Category.findOne({ name: reqData.topLevelCategory });
 
-        console.log("Top Level Category:", reqData);
         
         if (!topLevel) {
             topLevel = new Category({

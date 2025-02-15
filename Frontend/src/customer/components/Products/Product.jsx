@@ -48,7 +48,6 @@ export default function Product() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { product } = useSelector(store => store)
-  console.log(product);
   
   const decodedQueryString = decodeURIComponent(location.search)
   const searchParams = new URLSearchParams(decodedQueryString)
@@ -64,7 +63,6 @@ export default function Product() {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set('page', value)
     const query = searchParams.toString()
-    console.log(query);
     
     navigate({ search: `?${query}` })
 

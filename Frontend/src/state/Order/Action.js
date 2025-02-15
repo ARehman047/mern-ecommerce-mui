@@ -50,7 +50,6 @@ export const getOrderById = (orderId) => async (dispatch) => {
     dispatch(getOrderByIdRequest());
     try {
         const { data } = await api.get(`api/orders/${orderId}`);
-        console.log(data);
 
         dispatch(getOrderByIdSuccess(data));
     } catch (error) {

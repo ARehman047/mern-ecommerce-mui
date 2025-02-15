@@ -34,6 +34,7 @@ export default function Navigation() {
   const logOut = () => {
     dispatch(logout())
     handleCloseUserMenu();
+    navigate('/')
   }
 
   const handleUserClick = (event) => {
@@ -64,7 +65,8 @@ export default function Navigation() {
     }
   }, [jwt, auth.jwt]);
 
-  const actualCart = cart?.cart?.data
+  const actualCart = cart?.cart
+
   
   return (
     <div className="bg-white pb-10">
