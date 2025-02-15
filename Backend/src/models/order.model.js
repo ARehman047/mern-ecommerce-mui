@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     orderItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'orderItems' }],
     orderDate: { type: Date, required: true, default: Date.now() },
     deliveryDate: { type: Date },
-    shippingAddress: [{ type: mongoose.Schema.Types.ObjectId, ref: 'addresses' }],
+    shippingAddress: { type: mongoose.Schema.Types.ObjectId, ref: 'addresses' },
     paymentDetails: {
         paymentMethod: { type: String },
         transactionId: { type: String },

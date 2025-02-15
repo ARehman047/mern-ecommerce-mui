@@ -27,7 +27,7 @@ export const register = (userData) => async(dispatch) => {
             localStorage.setItem("jwt", user.jwt)
         }
         dispatch(registerSuccess(user.jwt))
-
+        window.location.reload()
     } catch (error) {
         dispatch(registerFailure(error.message))
     }

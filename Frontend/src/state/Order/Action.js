@@ -39,6 +39,7 @@ export const getOrderHistory = () => async (dispatch) => {
     dispatch(getOrderHistoryRequest());
     try {
         const { data } = await api.get(`api/orders/user`);
+
         dispatch(getOrderHistorySuccess(data));
     } catch (error) {
         dispatch(getOrderHistoryFailure(error.message));
