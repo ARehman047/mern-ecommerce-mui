@@ -9,7 +9,6 @@ import {
 
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-import TextField from "@mui/material/TextField";
 import { navigation } from "./navigationData";
 import { useNavigate } from "react-router-dom";
 import AuthModel from "../../auth/AuthModel";
@@ -40,7 +39,7 @@ export default function Navigation() {
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleCloseUserMenu = (event) => {
+  const handleCloseUserMenu = () => {
     setAnchorEl(null);
   };
 
@@ -63,7 +62,7 @@ export default function Navigation() {
       dispatch(getCart())
       handleClose();
     }
-  }, [jwt, auth.jwt]);
+  }, [jwt, auth.jwt, dispatch]);
 
   const actualCart = cart?.cart
 
@@ -171,7 +170,6 @@ export default function Navigation() {
                             >
                               {section.name}
                             </p>
-                            {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
                             <ul
                               role="list"
                               aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
@@ -352,7 +350,6 @@ export default function Navigation() {
                                           >
                                             {section.name}
                                           </p>
-                                          {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
                                           <ul
                                             role="list"
                                             aria-labelledby={`${section.name}-heading`}
