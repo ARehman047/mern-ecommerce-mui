@@ -243,7 +243,7 @@ export default function Navigation() {
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+          You will never get Free delievery, Pay UP!
         </p>
 
         <nav aria-label="Top" className="mx-auto">
@@ -265,7 +265,8 @@ export default function Navigation() {
                 <img
                   src="https://toppng.com/uploads/preview/aming-logos-png-gamer-logo-png-hd-11562862512hoxwywe94a.png"
                   alt="BoyKiShopHaiYaraJeeeeee"
-                  className="h-8 w-8 mr-2"
+                  className="h-8 w-8 mr-2 cursor-pointer"
+                  onClick={() => navigate('/')}
                 />
 
               </div>
