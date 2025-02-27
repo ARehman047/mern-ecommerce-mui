@@ -50,12 +50,7 @@ git clone https://github.com/ARehman047/mern-ecommerce-mui
    ```sh
    npm install
    ```
-3. Create a `.env` file in the backend root and add the following:
-   ```env
-    MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
-   ```
-4. Start the backend server:
+3. Start the backend server:
    ```sh
    npm run dev
    ```
